@@ -34,23 +34,26 @@ def fit1(entries=1000, save=False):
         tf.Write()
         tf.Close()
 
-
-    
-## example of plotting a similar histogram with error bars using numpy/matplotlib
-# import numpy as np
-# from matplotlib import pyplot as plt
-#vals=np.random.normal(loc=50, scale=10, size=entries)
-#y,binEdges=np.histogram(vals, bins=50, range=(1,100))
-#bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-#stdErr     = np.sqrt(y)
-#width      = binEdges[1]-binEdges[0]
-#plt.bar(bincenters, y, width=width, color='r', yerr=stdErr)
-#plt.show()
-
-
-
+    return randomHist1
 # **************************************
 
 if __name__ == "__main__":
     fit1()
     input("hit Enter to exit")
+
+
+# example of plotting a similar histogram with error bars using numpy/matplotlib
+# then using lmfit to perform the fit
+
+#import numpy as np
+#from matplotlib import pyplot as plt
+#
+#entries=1000
+#
+#vals=np.random.normal(loc=50, scale=10, size=entries)
+#y,binEdges=np.histogram(vals, bins=50, range=(1,100))
+#bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
+#ey         = np.sqrt(y)
+#width      = binEdges[1]-binEdges[0]
+#plt.bar(bincenters, y, width=width, color='r', yerr=ey)
+#plt.show(block=False)
