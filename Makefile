@@ -1,4 +1,4 @@
 default:
 	echo "Placeholder for Makefile, only used for cleaning"
 clean:
-	rm -f *so histo.root *_C.d
+	rm -rf *so histo.root *_C.d __pycache__ .ipynb_checkpoints
