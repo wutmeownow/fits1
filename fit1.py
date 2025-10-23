@@ -4,6 +4,7 @@ def fit1(entries=1000, save=False):
     # entries is the number of random samples filled into the histogram
 
     randomHist1 = r.TH1F("randomHist1", "Random Histogram;x;frequency", 100, 0, 100)
+    randomHist1.Sumw2()
     generator=r.TRandom2(0)  # parameter == seed, 0->use clock
 
     for i in range(entries):
@@ -11,11 +12,11 @@ def fit1(entries=1000, save=False):
 
     #simple fits may be performed automatically
     r.gStyle.SetOptFit(1111) # show reduced chi2, probability, and params
-    randomHist1.Fit("gaus","")
+    randomHist1.Fit("gaus")
     randomHist1.DrawCopy("e")  # "e" shows bin errors
     # Using DrawCopy vs Draw allows us to delete the original histogram
     # without removing it from the display.  If we save the histogran to a
-    #file and close the file, it will be deleted from memory.
+    # file and close the file, it will be deleted from memory.
 
     # Above we used a built in function, gaus, in the fit
     # This function will be associated with the histogram

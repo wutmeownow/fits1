@@ -24,7 +24,7 @@ void fit1(int entries=1000, bool save=false) {
   // simple fits may be performed automatically
   // gStyle->SetOptFit(111);  // show reduced chi2 and params
   gStyle->SetOptFit(1111); // show reduced chi2, probability, and params
-  randomHist1->Fit("gaus","");  
+  randomHist1->Fit("gaus");  
   randomHist1->DrawCopy("e");  // "e" shows bin errors
   // Using DrawCopy vs Draw allows us to delete the original histogram
   // without removing it from the display.  If we save the histogran to a
@@ -48,4 +48,5 @@ void fit1(int entries=1000, bool save=false) {
     tf->Write();
     tf->Close();
   }
+  cout << "Use .q to exit root" << endl;
 }
