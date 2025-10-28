@@ -18,3 +18,9 @@ You are welcome to modify the provided code for your projects and to use other p
 * TH1hist2Numpy.ipynb : an example for converting a ROOT histogram to numpy arrays
 
 Note that from ROOT you can type ```new TBrowser()``` or in Python r.TBrowser() to get a graphical browser that allows you to look at what's contained in the TFiles.
+
+
+
+
+## Exercise 1 ##
+The 1 sigma width of the distribution of means is around 0.374 for 10000 'experiments'.The fits estimate the uncertainty of the mean parameter is around 0.3 to 0.4, so this seems reasonable.

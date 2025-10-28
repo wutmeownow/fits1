@@ -1,6 +1,7 @@
 #include "TH1F.h"
 #include "TF1.h"
 #include "TFile.h"
+#include "TGraph.h"
 #include "TStyle.h"
 #include "TRandom2.h"
 #include "TROOT.h"
@@ -8,14 +9,21 @@
 
 // fit1.C
 // entries is the number of random samples filled into the histogram
-void fit1a(int entries=1000, int ntrials=1000, bool save=false) {
+void fit1a(int entries=1000, int ntrials=10000, bool save=false) {
    //Simple histogram fitting examples
   gROOT->Reset();  // useful to reset ROOT to a cleaner state
 
   TFile *tf=0;
   if (save) tf=new TFile("histo.root","recreate");
 
-  TH1F *redchi2 = new TH1F("redchisqr", "Reduced Chi Sqr", 100, 0, 5);
+  TGraph *g = new TGraph();
+  g->SetTitle(";Red Chi Sqr;Chi Sqr Probability");
+  // g->SetMarkerStyle(20); // filled circle
+  // g->SetMarkerSize(1.2);
+
+  TH1F *chisqrprobHist = new TH1F("chisqrprobHist", "chi sqr prob;prob;freq", 150, 0, 1);
+  TH1F *meanHist = new TH1F("meanHist", "Mean (Par[1]);mean;freq", 100, 48, 52);
+  TH1F *redchi2Hist = new TH1F("redchi2Hist", "Reduced Chi Sqr;Reduced chi sqr;freq", 100, 0, 2.5);
   TH1F *randomHist1 = new TH1F("randomHist1", "Random Histogram", 100, 0, 100);
   TRandom2 *generator=new TRandom2(0);  // parameter == seed, 0->use clock
 
@@ -35,7 +43,10 @@ void fit1a(int entries=1000, int ntrials=1000, bool save=false) {
     // cout << "Fit Chi Square: " << fitfunc->GetChisquare() << endl; // returns chi^2
     // cout << "Fit NDF: " << fitfunc->GetNDF() << endl; // returns # DoF
     // cout << "Fit Reduced Chi Square: " << fitfunc->GetChisquare()/fitfunc->GetNDF() << endl; // returns # DoF
-    redchi2->Fill(fitfunc->GetChisquare()/fitfunc->GetNDF());
+    redchi2Hist->Fill(fitfunc->GetChisquare()/fitfunc->GetNDF()); // add reduced chi sqr of this fit to histogram
+    meanHist->Fill(fitfunc->GetParameter(1)); // add mean parameter to hist
+    chisqrprobHist->Fill(fitfunc->GetProb()); // add fit probability to hist
+    g->SetPoint(i, fitfunc->GetChisquare()/fitfunc->GetNDF(), fitfunc->GetProb()); // fill graph with prob vs red chi sqr
   }
 
   // simple fits may be performed automatically
@@ -61,9 +72,33 @@ void fit1a(int entries=1000, int ntrials=1000, bool save=false) {
   // cout << fitfunc->GetParameter(2) << " +- " << fitfunc->GetParError(2) << endl;
   // cout << "Fit Probability: " << fitfunc->GetProb() << endl; // returns chi^2 p-value
 
+  TCanvas *tc1 = new TCanvas("c1","Experiments Results",800,600);
+  tc1->Divide(2,2);
+
+  tc1->cd(1); redchi2Hist->Draw();
+
+  tc1->cd(2); meanHist->Draw();
+
+  tc1->cd(3); chisqrprobHist->Draw();
+
+  tc1->cd(4); g->Draw("AP");
+
+  tc1->Update();
+  tc1->SaveAs("result1.pdf");
+
+
   if (save) {
     tf->Write();
     tf->Close();
   }
+
+  // clean up
+  delete chisqrprobHist;
+  delete meanHist;
+  delete redchi2Hist;
+  delete randomHist1;
+  delete g;
+  delete generator;
+  delete tc1;
   cout << "Use .q to exit root" << endl;
 }
