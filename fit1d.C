@@ -35,7 +35,7 @@ void fit1d(int ntrials=10000) {
   auto h25 = (TH1F*) file25->Get("randomHist1");
 
   // Fit with Gaussian using NLL minimization
-  h25->Fit("gaus","QL");
+  h25->Fit("gaus","L");
   TF1 *fitfunc = h25->GetFunction("gaus");
 
   // loop through bins and calculate NLL
@@ -76,8 +76,20 @@ void fit1d(int ntrials=10000) {
 
   TCanvas *tc1 = new TCanvas("c1","Experiments Results",800,600);
   tc1->Divide(1,1);
+  g->Sort();
+  tc1->cd(1); g->Draw("AL");
 
-  tc1->cd(1); g->Draw("AP");
+  // Get y-axis maximum to determine line height
+  // double ymax = g->GetMaximum();
+  TLine* line = new TLine(mean+2*mean_err, 89, mean+2*mean_err, 93.5);
+  line->SetLineColor(kRed);
+  line->SetLineWidth(1);
+  line->Draw("same");
+
+  TLine* line2 = new TLine(mean-2*mean_err, 89, mean-2*mean_err, 93.5);
+  line2->SetLineColor(kRed);
+  line2->SetLineWidth(1);
+  line2->Draw("same");
 
   tc1->Update();
   tc1->SaveAs("result4.pdf");
