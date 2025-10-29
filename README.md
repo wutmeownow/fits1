@@ -27,3 +27,6 @@ The 1 sigma width of the distribution of means is around 0.374 for 10000 'experi
 
 ## Exercise 2 ##
 The average mean parameter for NLL minimization is closer to the expected value of 50 compared to the average mean parameter for chi2 minimization. Additionally, the standard deviation for the NLL distribution is smaller, indicating a lower error in the fit parameter if the NLL is minimized instead of chi2 for a low statistics experiment.
+
+## Exercise 3 ##
+By integrating the bin counts in bins greater than the bin with my original NLL and dividing it by the total number of counts, I end up with a p-value of 0.31.
