@@ -24,3 +24,6 @@ Note that from ROOT you can type ```new TBrowser()``` or in Python r.TBrowser() 
 
 ## Exercise 1 ##
 The 1 sigma width of the distribution of means is around 0.374 for 10000 'experiments'.The fits estimate the uncertainty of the mean parameter is around 0.3 to 0.4, so this seems reasonable.
+
+## Exercise 2 ##
+The average mean parameter for NLL minimization is closer to the expected value of 50 compared to the average mean parameter for chi2 minimization. Additionally, the standard deviation for the NLL distribution is smaller, indicating a lower error in the fit parameter if the NLL is minimized instead of chi2 for a low statistics experiment.
