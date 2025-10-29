@@ -30,3 +30,11 @@ The average mean parameter for NLL minimization is closer to the expected value 
 
 ## Exercise 3 ##
 By integrating the bin counts in bins greater than the bin with my original NLL and dividing it by the total number of counts, I end up with a p-value of 0.31.
+
+
+## Final Exercise (5630) ##
+The error for the mean from the NLL fit of 25 events was around 2. The red lines on the plot show +- 2 of the parameter's error, which intersects the graph at -2lnL + 4. This agrees exactly with expectations.
+
+The error for the mean from the chi2 fit of 1k events was around 0.3. The red lines show the +- 1 sigma error in the mean given by the fit, which properly intersects the graph at chi2+1. 
+
+Both plots show that the parameter errors are estimated from the curvature of the minimization function near the minimum.
